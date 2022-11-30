@@ -22,11 +22,11 @@ function visitNode(node: ts.Node, program: ts.Program): ts.Node | undefined {
     return node;
   }
   if (!node.typeArguments) {
-    return ts.createArrayLiteral([]);
+    return ts.factory.createArrayLiteralExpression([]);
   }
   const type = typeChecker.getTypeFromTypeNode(node.typeArguments[0]);
   const properties = typeChecker.getPropertiesOfType(type);
-  return ts.createArrayLiteral(properties.map(property => ts.createLiteral(property.name)));
+  return ts.factory.createArrayLiteralExpression(properties.map(property => ts.factory.createStringLiteral(property.name)));
 }
 
 const indexJs = path.join(__dirname, 'index.js');
